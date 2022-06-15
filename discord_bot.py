@@ -1,18 +1,26 @@
 import discord
 from discord.ext import tasks
 from datetime import datetime
+from discord.ext import commands
+
+bot = commands.Bot(command_prefix='$')
 
 TOKEN = ""
 CHANNEL_ID = 
 
+intents = discord.Intents.default()
+
 client = discord.Client()
 
-@tasks.loop(seconds=1123200)
-async def loop():
-    now = datetime.now().strftime('%H:%M')
-    if now == '21:45':
-        channel = client.get_channel(CHANNEL_ID)
-        await channel.send("15分後に会議があります。参加することを忘れないように")
+@client.event
+async def on_ready():
+    print(f'We have logged in as {client.user}')
 
-loop.start()
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    
+    if message.content.startswith('$'):
+        await message.channel.send(message.content)
 client.run(TOKEN)
