@@ -1,9 +1,6 @@
 import discord
 from discord.ext import tasks
 from datetime import datetime
-from discord.ext import commands
-
-bot = commands.Bot(command_prefix='$')
 
 TOKEN = ""
 CHANNEL_ID = 
