@@ -2,6 +2,7 @@ import discord
 from discord.ext import tasks
 from datetime import datetime
 from discord.ext import commands
+import time
 
 bot = commands.Bot(command_prefix='$')
 
@@ -22,5 +23,7 @@ async def on_message(message):
         return
     
     if message.content.startswith('$'):
-        await message.channel.send(message.content)
+        for x in range(10):
+            await message.channel.send("custom stamp")
+            time.sleep(0.25)
 client.run(TOKEN)
