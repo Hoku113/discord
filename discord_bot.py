@@ -9,41 +9,49 @@ import random
 # user_list = []
 test_user_list = []
 level = {'1': 10, '2': 20, '3': 30, '4': 40, '5':50}
+level = level[str(random.randint(1, 5))]
 
-
-TOKEN = ""
-CHANNEL_ID = 
-
-intents = discord.Intents.default()
+TOKEN = "<token>"
+CHANNEL_ID = "<channel_id>"
+SERVER_ID = "<server_id>"
 
 client = discord.Client()
 
+@client.event
+async def on_ready():
+    print(f"We have logged in as {client.user}")
+
 @tasks.loop(seconds=1)
 async def loop():
+
+    # start client
+    await client.wait_until_ready()
+
+    # get channel
+    channel = client.get_channel(CHANNEL_ID)
+
     now = datetime.now()
     now = now.strftime('%H:%M')
-    if now == '05:31':
-        channel = TextChannel._get_channel()
-        # user = client.get_user(test_user_list[random.randint(1)])
-        number = level[str(random.randint(1, 5))]
-        await channel.send('hello')
 
+    if now == now:
+        # user = discord.Member()
+        await channel.send(f"{level}このスタンプ")
+        guild = client.get_guild(SERVER_ID)
+        
+        # check
+        print(guild.members)
+        
+        # for x in range(1):
+        #     await channel.send('<a:parot:987402234595803217>')
+        #     time.sleep(1)
+
+        #     if x == x :
+        #         await channel.send("送信完了('◇')ゞ")
+        #         break
+        #     else:
+        #         x += 1
+            
 loop.start()
+loop.stop()
 
-
-# @client.event
-# async def on_ready():
-#     print(f'We have logged in as {client.user}')
-
-# @client.event
-# async def on_message(message):
-#     if message.author == client.user:
-#         return
-    
-#     if now == '3:56:00':
-#         for x in range(level[str(random.randint(1, 5))]):
-#             await message.channel.send("custom stamp")
-#             time.sleep(2)
-
-    
 client.run(TOKEN)
